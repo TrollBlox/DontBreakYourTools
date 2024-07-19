@@ -1,0 +1,22 @@
+{
+  "required": true,
+  "package": "net.trollblox.dontbreakyourtools.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "AxeSaver",
+    "BlockBreakableActions",
+    "BowSaver",
+    "BrushSaver",
+    "CrossbowSaver",
+    "FishingRodSaver",
+    "FlintAndSteelSaver",
+    "HoeSaver",
+    "OnAStickSaver",
+    "ShearsSaver",
+    "ShovelSaver",
+    "TridentSaver"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+	}
+}
