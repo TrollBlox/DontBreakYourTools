@@ -12,7 +12,8 @@
     "FlintAndSteelSaver",
     "HoeSaver",
     "OnAStickSaver",
-    "ShearsSaver",
+    "ShearsBlockSaver",
+    "ShearsEntitySaver",
     "ShovelSaver",
     "TridentSaver"
   ],

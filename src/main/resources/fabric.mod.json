@@ -3,15 +3,15 @@
 	"id": "dont-break-your-tools",
 	"version": "${version}",
 	"name": "Don't Break Your Tools!",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": " Prevents item from being broken ",
 	"authors": [
-		"Me!"
+		"TrollBlox"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/dont-break-your-tools/icon.png",
 	"environment": "*",
 	"entrypoints": {
