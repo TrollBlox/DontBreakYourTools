@@ -3,8 +3,8 @@ package net.trollblox.dontbreakyourtools.mixin;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.OnAStickItem;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import net.trollblox.dontbreakyourtools.DontBreakYourTools;
 import org.spongepowered.asm.mixin.Final;
@@ -19,10 +19,10 @@ public class OnAStickSaver {
     @Shadow @Final private int damagePerUse;
 
     @Inject(at = @At("HEAD"), method = "use", cancellable = true)
-    private void preventBreakage(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> info) {
+    private void preventBreakage(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<ActionResult> info) {
         ItemStack heldItem = user.getStackInHand(hand);
         if (DontBreakYourTools.preventUsage(heldItem, damagePerUse)) {
-            info.setReturnValue(TypedActionResult.pass(heldItem));
+            info.setReturnValue(ActionResult.FAIL);
             info.cancel();
         }
     }

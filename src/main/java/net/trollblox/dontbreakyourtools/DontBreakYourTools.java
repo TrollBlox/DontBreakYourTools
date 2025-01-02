@@ -22,7 +22,7 @@ public class DontBreakYourTools implements ModInitializer {
 
 	public static boolean preventAttack(ItemStack stack) {
 		int amount = 0;
-		if (stack.getItem() instanceof ToolItem && !(stack.getItem() instanceof SwordItem)) amount++;
+		if (stack.getItem() instanceof MiningToolItem && !(stack.getItem() instanceof SwordItem)) amount++;
 		return preventUsage(stack, amount);
 	}
 
