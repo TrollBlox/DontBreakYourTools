@@ -1,7 +1,7 @@
 package net.trollblox.dontbreakyourtools;
 
 import net.fabricmc.api.ModInitializer;
-
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,7 @@ public class DontBreakYourTools implements ModInitializer {
 
 	public static boolean preventAttack(ItemStack stack) {
 		int amount = 0;
-		if (stack.getItem() instanceof MiningToolItem) amount++;
+		if (stack.getItem().getComponents().contains(DataComponentTypes.TOOL)) amount++;
 		return preventUsage(stack, amount);
 	}
 

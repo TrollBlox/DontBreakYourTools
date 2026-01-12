@@ -47,4 +47,11 @@ public class MixinPlayerInteractionManager {
             cir.setReturnValue(ActionResult.FAIL);
         }
     }
+
+    @Inject(method = "interactEntity", at = @At("HEAD"), cancellable = true)
+    private void interactEntity(PlayerEntity player, Entity entity, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
+        if (DontBreakYourTools.preventUsage(player.getStackInHand(hand))) {
+            cir.setReturnValue(ActionResult.FAIL);
+        }
+    }
 }
