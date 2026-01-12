@@ -8,8 +8,8 @@
 		"TrollBlox"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/TrollBlox",
+		"sources": "https://github.com/TrollBlox/DontBreakYourTools"
 	},
 	"license": "MIT",
 	"icon": "assets/dont-break-your-tools/icon.png",
