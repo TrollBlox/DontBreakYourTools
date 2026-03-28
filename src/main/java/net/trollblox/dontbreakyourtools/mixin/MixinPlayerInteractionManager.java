@@ -1,15 +1,16 @@
 package net.trollblox.dontbreakyourtools.mixin;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.network.ClientPlayerInteractionManager;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.multiplayer.MultiPlayerGameMode;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.phys.EntityHitResult;
 import net.trollblox.dontbreakyourtools.DontBreakYourTools;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,41 +18,41 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(ClientPlayerInteractionManager.class)
+@Mixin(MultiPlayerGameMode.class)
 public class MixinPlayerInteractionManager {
 
-    @Inject(method = "attackBlock", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "startDestroyBlock", at = @At("HEAD"), cancellable = true)
     private void attackBlock(BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
-        if (DontBreakYourTools.preventUsage(MinecraftClient.getInstance().player.getMainHandStack())) {
+        if (DontBreakYourTools.preventUsage(Minecraft.getInstance().player.getMainHandItem())) {
             cir.setReturnValue(false);
         }
     }
 
-    @Inject(method = "attackEntity", at = @At("HEAD"), cancellable = true)
-    private void attackEntity(PlayerEntity player, Entity target, CallbackInfo ci) {
-        if (DontBreakYourTools.preventAttack(player.getMainHandStack())) {
+    @Inject(method = "attack", at = @At("HEAD"), cancellable = true)
+    private void attackEntity(Player player, Entity target, CallbackInfo ci) {
+        if (DontBreakYourTools.preventAttack(player.getMainHandItem())) {
             ci.cancel();
         }
     }
 
-    @Inject(method = "interactBlock", at = @At("HEAD"), cancellable = true)
-    private void interactBlock(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
-        if (DontBreakYourTools.preventUsage(player.getStackInHand(hand))) {
-            cir.setReturnValue(ActionResult.FAIL);
+    @Inject(method = "useItemOn", at = @At("HEAD"), cancellable = true)
+    private void interactBlock(LocalPlayer player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {
+        if (DontBreakYourTools.preventUsage(player.getItemInHand(hand))) {
+            cir.setReturnValue(InteractionResult.FAIL);
         }
     }
 
-    @Inject(method = "interactItem", at = @At("HEAD"), cancellable = true)
-    private void interactItem(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        if (DontBreakYourTools.preventUsage(player.getStackInHand(hand))) {
-            cir.setReturnValue(ActionResult.FAIL);
+    @Inject(method = "useItem", at = @At("HEAD"), cancellable = true)
+    private void interactItem(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+        if (DontBreakYourTools.preventUsage(player.getItemInHand(hand))) {
+            cir.setReturnValue(InteractionResult.FAIL);
         }
     }
 
-    @Inject(method = "interactEntity", at = @At("HEAD"), cancellable = true)
-    private void interactEntity(PlayerEntity player, Entity entity, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        if (DontBreakYourTools.preventUsage(player.getStackInHand(hand))) {
-            cir.setReturnValue(ActionResult.FAIL);
+    @Inject(method = "interact", at = @At("HEAD"), cancellable = true)
+    private void interactEntity(Player player, Entity entity, EntityHitResult result, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+        if (DontBreakYourTools.preventUsage(player.getItemInHand(hand))) {
+            cir.setReturnValue(InteractionResult.FAIL);
         }
     }
 }
